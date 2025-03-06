@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Click to Copy Tool</title>
+    <style>
+        body { font-family: Arial, sans-serif; margin: 20px; }
+        .container { max-width: 600px; margin: auto; }
+        .text-box { display: flex; align-items: center; margin-bottom: 10px; }
+        textarea { flex: 1; padding: 5px; }
+        button { margin-left: 10px; cursor: pointer; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h2>Click to Copy Text</h2>
+        <button onclick="addTextField()">Add Field</button>
+        <div id="fields-container"></div>
+    </div>
+
+    <script>
+        function addTextField() {
+            let container = document.getElementById("fields-container");
+            let div = document.createElement("div");
+            div.className = "text-box";
+            div.innerHTML = `
+                <textarea rows="2" placeholder="Enter text..."></textarea>
+                <button onclick="copyText(this)">Copy</button>
+                <button onclick="removeField(this)">Remove</button>
+            `;
+            container.appendChild(div);
+        }
+
+        function copyText(button) {
+            let textArea = button.previousElementSibling;
+            textArea.select();
+            document.execCommand("copy");
+        }
+
+        function removeField(button) {
+            button.parentElement.remove();
+        }
+    </script>
+</body>
+</html>
